@@ -1,1 +1,0 @@
-# raterproject-client
