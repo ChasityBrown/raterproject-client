@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { useHistory } from 'react-router-dom'
-import { createGame, getGames } from './GameManager.js'
+import { createGame, getGames, getCategories } from './GameManager.js'
 
 
 export const GameForm = () => {
     const history = useHistory()
-    const [gameTypes, setGameTypes] = useState([])
+    const [categories, setCategories] = useState([])
 
     /*
         Since the input fields are bound to the values of
@@ -19,12 +19,13 @@ export const GameForm = () => {
         year_released: 0,
         number_of_players: 0,
         estimated_time: 0,
-        age_recommendation: 0
+        age_recommendation: 0,
+        category: 0
     })
 
     useEffect(() => {
-        // TODO: Get the game types, then set the state
-        getGames().then(data => setCurrentGame(data))
+        // TODO: Get the categories, then set the state
+        getCategories().then(data => setCategories(data))
     }, [])
 
     const changeGameState = (domEvent) => {
@@ -102,6 +103,21 @@ export const GameForm = () => {
                     />
                 </div>
             </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="category">Category: </label>
+                    <select name="category" required className="form-control"
+                        value={currentGame.category}
+                        onChange={changeGameState}>
+                    <option value="0">Select a category</option>
+                    {
+                        categories.map(c => (
+                            <option key={c.id} value={c.id}>{c.label}</option>
+                        ))
+                    }
+                    </select>
+                </div>
+            </fieldset>
 
 
             {/* TODO: create the rest of the input fields */}
@@ -118,7 +134,8 @@ export const GameForm = () => {
                         year_released: currentGame.year_released,
                         number_of_players: currentGame.number_of_players,
                         estimated_time: currentGame.estimated_time,
-                        age_recommendation: currentGame.age_recommendation
+                        age_recommendation: currentGame.age_recommendation,
+                        category: currentGame.category
                     }
 
                     // Send POST request to your API

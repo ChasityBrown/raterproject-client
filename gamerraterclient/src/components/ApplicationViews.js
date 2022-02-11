@@ -1,7 +1,8 @@
 import React from "react"
 import { Route } from "react-router-dom"
-import { GameList } from "./game/GameList.js"
-import { GameForm } from "./game/GameForm.js"
+import { GameList } from "./games/GameList.js"
+import { GameForm } from "./games/GameForm.js"
+import { GameDetails } from "./games/GameDetails.js"
 
 export const ApplicationViews = () => {
     return <>
@@ -12,6 +13,9 @@ export const ApplicationViews = () => {
         }}>
             <Route exact path="/games">
                 <GameList />
+            </Route>
+            <Route path="/games/:gameId(\d+)">
+                <GameDetails />
             </Route>
             <Route exact path="/games/new">
                 <GameForm />
