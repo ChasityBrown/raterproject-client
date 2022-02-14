@@ -53,3 +53,15 @@ export const getCategories = () => {
     })
         .then(res => res.json())
 }
+export const createReview = ({gameId, id, review}) => {
+    console.log(gameId)
+    return fetch(`http://localhost:8000/games/${gameId}`, {
+        method: "POST",
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("lu_token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(review)
+     })
+        .then(res => res.json())
+}
